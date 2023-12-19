@@ -42,4 +42,11 @@ public class FoodController {
         foodService.delete(f_name);
         return R.success("删除成功");
     }
+
+    @PostMapping("/update")
+    public R<String> update(@RequestBody Food food){
+        foodService.updateById(food);
+        return R.success("更新成功");
+    }
+
 }
