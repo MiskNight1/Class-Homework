@@ -16,6 +16,7 @@ public class Food {
     @TableField("food_name")
     private String food_name;
     //餐品介绍
+    @TableField("introduction")
     private String food_introduction;
     //图片链接
     private String photo;

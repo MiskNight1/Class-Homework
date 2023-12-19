@@ -1,5 +1,5 @@
 server:
-  port: 7666  # default port
+  port: 8080  # default port
 
 
 spring:

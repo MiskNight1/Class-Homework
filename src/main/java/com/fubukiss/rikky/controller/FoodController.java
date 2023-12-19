@@ -35,5 +35,11 @@ public class FoodController {
         return R.success(pageInfo);
     }
 
+    @PostMapping("/delete")
+    public R<String> delete(@RequestBody Food food){
 
+        String f_name = food.getFood_name();
+        foodService.delete(f_name);
+        return R.success("删除成功");
+    }
 }
