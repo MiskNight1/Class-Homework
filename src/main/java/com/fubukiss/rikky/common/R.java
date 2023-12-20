@@ -57,10 +57,10 @@ public class R<T> {
      * @param <T>
      * @return 返回该类的泛型的结果R对象，包含有失败代码和错误信息
      */
-    public static <T> R<T> error(String msg) {
+    public static <T> R<T> error(String msg,int errcode) {
         R r = new R();
         r.msg = msg;
-        r.code = 0;
+        r.code = errcode;
         return r;
     }
 

@@ -3,6 +3,7 @@ package com.fubukiss.rikky.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fubukiss.rikky.common.CustomException;
+import com.fubukiss.rikky.common.R;
 import com.fubukiss.rikky.entity.Admin;
 import com.fubukiss.rikky.mapper.AdminMapper;
 import com.fubukiss.rikky.service.AdminService;
@@ -19,18 +20,18 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     AdminMapper adminMapper;
 
     @Override
-    public Admin login(Admin admin){
+    public R<Admin> login(Admin admin){
         String admin_id = admin.getAdminid();
         Admin info = adminMapper.selectById(admin_id);
         if(info==null||info.getIsdelete()==1){
             log.info("账号不存在");
-            return null;
+            return R.error("账号不存在",100);
         }
         else if(!info.getPassword().equals(admin.getPassword())){
             log.info("账号或密码错误");
-            return null;
+            return R.error("账号或密码错误",300);
         }
-        return info;
+        return R.success(info);
     }
 
     @Override
@@ -48,9 +49,6 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
             this.save(reg_admin);
             return reg_admin;
         }
-        else{
-            throw new CustomException("已经存在相同账号");
-        }
-
+        return null;
     }
 }

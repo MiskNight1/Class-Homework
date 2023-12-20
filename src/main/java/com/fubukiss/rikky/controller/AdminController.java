@@ -15,22 +15,24 @@ import javax.annotation.Resource;
 public class AdminController {
     @Resource
     AdminService adminService;
-    @PostMapping("/admin")
+    @PostMapping("/login")
     public R<Admin> login_Admin(@RequestBody Admin admin){
-        Admin response;
+        R<Admin> response;
         response = adminService.login(admin);
         if(response!=null)
-            return R.success(response);
-        return R.error("账号或密码错误");
+            return R.success(response.getData());
+        return R.error("账号或密码错误",300);
     }
 
     @PostMapping("/register")
     public R<Admin> register_Admin(@RequestBody Admin admin){
         Admin response;
         if(admin.getPassword().length()<6){
-            return R.error("密码太短");
+            return R.error("密码太短",300);
         }
         response = adminService.register(admin);
+        if(response ==null)
+            return R.error("账号已存在",100);
         return R.success(response);
     }
 }

@@ -21,7 +21,7 @@ public class UserController {
         response = user_service.login(user);
         if(response!=null)
             return R.success(response);
-        return R.error("账号或密码错误");
+        return R.error("账号或密码错误",300);
     }
 
 }
