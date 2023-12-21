@@ -46,6 +46,7 @@ public class R<T> {
     public static <T> R<T> success(T object) {
         R<T> r = new R<T>();
         r.data = object;
+        r.msg ="成功啦";
         r.code = 1;
         return r;
     }

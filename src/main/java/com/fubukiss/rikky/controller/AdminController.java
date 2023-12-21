@@ -19,20 +19,18 @@ public class AdminController {
     public R<Admin> login_Admin(@RequestBody Admin admin){
         R<Admin> response;
         response = adminService.login(admin);
-        if(response!=null)
+        if(response.getCode()!=300)
             return R.success(response.getData());
         return R.error("账号或密码错误",300);
     }
 
     @PostMapping("/register")
     public R<Admin> register_Admin(@RequestBody Admin admin){
-        Admin response;
+        R<Admin> response;
         if(admin.getPassword().length()<6){
             return R.error("密码太短",300);
         }
         response = adminService.register(admin);
-        if(response ==null)
-            return R.error("账号已存在",100);
-        return R.success(response);
+        return response;
     }
 }

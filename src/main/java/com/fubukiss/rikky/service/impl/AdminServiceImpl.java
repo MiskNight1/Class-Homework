@@ -25,17 +25,17 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         Admin info = adminMapper.selectByName(admin_id);
         if(info==null||info.getIsdelete()==1){
             log.info("账号不存在");
-            return null;
+            return R.error("账号不存在",300);
         }
         else if(!info.getPassword().equals(admin.getPassword())){
             log.info("账号或密码错误");
-            return null;
+            return R.error("账号或密码错误",300);
         }
         return R.success(info);
     }
 
     @Override
-    public Admin register(Admin admin){
+    public R<Admin> register(Admin admin){
         String admin_id = admin.getAdminid();
         String admin_password = admin.getPassword();
         LambdaQueryWrapper<Admin> queryWrapper = new LambdaQueryWrapper<>();
@@ -47,8 +47,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
             reg_admin.setPassword(admin_password);
             reg_admin.setAdminname(admin.getAdminname());
             this.save(reg_admin);
-            return reg_admin;
+            return R.success(reg_admin);
         }
-        return null;
+        return R.error("账号已存在",100);
     }
 }
