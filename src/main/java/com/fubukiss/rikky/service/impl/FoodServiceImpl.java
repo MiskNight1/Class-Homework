@@ -23,14 +23,14 @@ public class FoodServiceImpl extends ServiceImpl<FoodMapper, Food> implements Fo
     @Override
     public void delete(String f_name){
         LambdaQueryWrapper<Food> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Food::getFood_name,f_name);
+        queryWrapper.eq(Food::getFoodName,f_name);
         Food info = this.getOne(queryWrapper);
         if(info==null||info.getIsdelete()==1){
             throw new CustomException("没有这个数据或者已被删除");
         }
         //将被删除的设置为1
         UpdateWrapper<Food> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("food_id",info.getFood_id());
+        updateWrapper.eq("food_id",info.getFoodId());
         info = new Food();
         info.setIsdelete(1);
         baseMapper.update(info,queryWrapper);

@@ -30,15 +30,16 @@ public class FoodController {
     public R<Page> page(int page,int pagesize){
         Page<Food> pageInfo = new Page<>();
         LambdaQueryWrapper<Food> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.orderByAsc(Food::getFood_id);
+        queryWrapper.orderByAsc(Food::getFoodId);
         foodService.page(pageInfo,queryWrapper);
+        System.out.println("ok");
         return R.success(pageInfo);
     }
 
     @PostMapping("/delete")
     public R<String> delete(@RequestBody Food food){
 
-        String f_name = food.getFood_name();
+        String f_name = food.getFoodName();
         foodService.delete(f_name);
         return R.success("删除成功");
     }

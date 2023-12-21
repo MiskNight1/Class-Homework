@@ -11,13 +11,13 @@ import java.math.BigDecimal;
 public class Food {
     //餐品编号
     @TableField("food_id")
-    private String food_id;
+    private String foodId;
     //餐品名称
     @TableField("food_name")
-    private String food_name;
+    private String foodName;
     //餐品介绍
     @TableField("introduction")
-    private String food_introduction;
+    private String foodIntroduction;
     //图片链接
     private String photo;
     //餐品价格
