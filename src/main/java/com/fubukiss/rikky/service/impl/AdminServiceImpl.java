@@ -22,14 +22,14 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     @Override
     public R<Admin> login(Admin admin){
         String admin_id = admin.getAdminid();
-        Admin info = adminMapper.selectById(admin_id);
+        Admin info = adminMapper.selectByName(admin_id);
         if(info==null||info.getIsdelete()==1){
             log.info("账号不存在");
-            return R.error("账号不存在",100);
+            return null;
         }
         else if(!info.getPassword().equals(admin.getPassword())){
             log.info("账号或密码错误");
-            return R.error("账号或密码错误",300);
+            return null;
         }
         return R.success(info);
     }
