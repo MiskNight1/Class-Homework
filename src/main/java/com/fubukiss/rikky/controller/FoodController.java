@@ -28,7 +28,7 @@ public class FoodController {
 
     @GetMapping("/page")
     public R<Page> page(int page,int pagesize){
-        Page<Food> pageInfo = new Page<>();
+        Page<Food> pageInfo = new Page<>(page,pagesize);
         LambdaQueryWrapper<Food> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.orderByAsc(Food::getFoodId);
         foodService.page(pageInfo,queryWrapper);

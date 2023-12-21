@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/admin")
@@ -32,5 +33,12 @@ public class AdminController {
         }
         response = adminService.register(admin);
         return response;
+    }
+
+    @PostMapping("/logout")
+    public R<String> logout(HttpServletRequest request) {
+        // 清理session中保存的当前登陆Admin的id
+        request.getSession().removeAttribute("Admin"); // 放入的时候是什么名字，就要把什么名字移除
+        return R.success("退出成功");
     }
 }
