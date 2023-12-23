@@ -22,11 +22,11 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin`  (
-  `admin_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `password` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `isdelete` int NULL DEFAULT NULL,
-  PRIMARY KEY (`admin_id`) USING BTREE
+                          `admin_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                          `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+                          `password` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+                          `isdelete` int NULL DEFAULT NULL,
+                          PRIMARY KEY (`admin_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -42,13 +42,13 @@ INSERT INTO `admin` VALUES ('SKK123', 'xxxb', '1234567', 0);
 -- ----------------------------
 DROP TABLE IF EXISTS `food`;
 CREATE TABLE `food`  (
-  `food_id` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `food_name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `introduction` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `price` decimal(10, 2) NULL DEFAULT NULL,
-  `isdelete` int NULL DEFAULT NULL,
-  PRIMARY KEY (`food_id`, `food_name`) USING BTREE
+                         `food_id` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                         `food_name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                         `introduction` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+                         `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+                         `price` decimal(10, 2) NULL DEFAULT NULL,
+                         `isdelete` int NULL DEFAULT NULL,
+                         PRIMARY KEY (`food_id`, `food_name`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -122,13 +122,13 @@ INSERT INTO `food` VALUES ('sys123', '云吞', '好吃的食物', NULL, 20.00, 0
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
-  `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `phonenumber` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `password` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `isdelete` int NULL DEFAULT NULL,
-  PRIMARY KEY (`user_id`) USING BTREE,
-  INDEX `phonenumber`(`phonenumber` ASC) USING BTREE
+                         `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                         `user_name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+                         `phonenumber` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+                         `password` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+                         `isdelete` int NULL DEFAULT NULL,
+                         PRIMARY KEY (`user_id`) USING BTREE,
+                         INDEX `phonenumber`(`phonenumber` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -143,24 +143,89 @@ INSERT INTO `user` VALUES ('SKX12', 'handsome boy', NULL, '123546', 0);
 -- ----------------------------
 DROP TABLE IF EXISTS `订单表`;
 CREATE TABLE `订单表`  (
-  `order_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `status` int NULL DEFAULT NULL,
-  `total_price` decimal(10, 2) NULL DEFAULT NULL,
-  `order_time` datetime NULL DEFAULT NULL,
-  `order_place` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `isDelete` int NULL DEFAULT NULL,
-  `phonenumber` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`order_id`) USING BTREE,
-  INDEX `user_id`(`user_id` ASC) USING BTREE,
-  INDEX `phonenumber`(`phonenumber` ASC) USING BTREE,
-  CONSTRAINT `phonenumber` FOREIGN KEY (`phonenumber`) REFERENCES `user` (`phonenumber`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+                           `order_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                           `status` int NULL DEFAULT NULL,
+                           `total_price` decimal(10, 2) NULL DEFAULT NULL,
+                           `order_time` datetime NULL DEFAULT NULL,
+                           `order_place` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+                           `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+                           `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                           `isDelete` int NULL DEFAULT NULL,
+                           `phonenumber` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+                           PRIMARY KEY (`order_id`) USING BTREE,
+                           INDEX `user_id`(`user_id` ASC) USING BTREE,
+                           INDEX `phonenumber`(`phonenumber` ASC) USING BTREE,
+                           CONSTRAINT `phonenumber` FOREIGN KEY (`phonenumber`) REFERENCES `user` (`phonenumber`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+                           CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of 订单表
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for shopping_cart
+-- ----------------------------
+DROP TABLE IF EXISTS `shopping_cart`;
+CREATE TABLE `shopping_cart`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `name`        varchar(50) COLLATE utf8_bin  DEFAULT NULL COMMENT '名称',
+    `photo`       varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '图片',
+    `user_id`     bigint(20) NOT NULL COMMENT '主键',
+    `food_id`     bigint(20) DEFAULT NULL COMMENT '菜品id',
+    `amount`      decimal(10, 2) NOT NULL COMMENT '金额',
+    `create_time` datetime                      DEFAULT NULL COMMENT '创建时间',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='购物车';
+
+-- ----------------------------
+-- Records of shopping_cart
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for orders
+-- ----------------------------
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders`
+(
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `number`          varchar(50) COLLATE utf8_bin  DEFAULT NULL COMMENT '订单号',
+    `status`          int(11) NOT NULL DEFAULT '1' COMMENT '订单状态 1待付款，2待派送，3已派送，4已完成，5已取消',
+    `user_id`         bigint(20) NOT NULL COMMENT '下单用户',
+    `address_book_id` bigint(20) NOT NULL COMMENT '地址id',
+    `order_time`      datetime       NOT NULL COMMENT '下单时间',
+    `checkout_time`   datetime       NOT NULL COMMENT '结账时间',
+    `amount`          decimal(10, 2) NOT NULL COMMENT '实收金额',
+    `remark`          varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
+    `phone`           varchar(255) COLLATE utf8_bin DEFAULT NULL,
+    `address`         varchar(255) COLLATE utf8_bin DEFAULT NULL,
+    `user_name`       varchar(255) COLLATE utf8_bin DEFAULT NULL,
+    `consignee`       varchar(255) COLLATE utf8_bin DEFAULT NULL,
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='订单表';
+
+-- ----------------------------
+-- Records of orders
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for order_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `order_detail`;
+CREATE TABLE `order_detail`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `name`        varchar(50) COLLATE utf8_bin  DEFAULT NULL COMMENT '名字',
+    `photo`       varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '图片',
+    `order_id`    bigint(20) NOT NULL COMMENT '订单id',
+    `food_id`     bigint(20) DEFAULT NULL COMMENT '菜品id',
+    `amount`      decimal(10, 2) NOT NULL COMMENT '金额',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='订单明细表';
+
+-- ----------------------------
+-- Records of order_detail
 -- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;
