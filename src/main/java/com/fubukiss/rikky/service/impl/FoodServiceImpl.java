@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fubukiss.rikky.common.CustomException;
+import com.fubukiss.rikky.common.R;
 import com.fubukiss.rikky.entity.Admin;
 import com.fubukiss.rikky.entity.Food;
 import com.fubukiss.rikky.mapper.FoodMapper;
@@ -21,12 +22,12 @@ public class FoodServiceImpl extends ServiceImpl<FoodMapper, Food> implements Fo
     @Resource
     FoodMapper foodMapper;
     @Override
-    public void delete(String f_name){
+    public R<String> delete(String f_name){
         LambdaQueryWrapper<Food> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Food::getFoodName,f_name);
         Food info = this.getOne(queryWrapper);
         if(info==null||info.getIsdelete()==1){
-            throw new CustomException("没有这个数据或者已被删除");
+            return R.error("不存在该记录或者已被删除",0);
         }
         //将被删除的设置为1
         UpdateWrapper<Food> updateWrapper = new UpdateWrapper<>();
@@ -34,6 +35,6 @@ public class FoodServiceImpl extends ServiceImpl<FoodMapper, Food> implements Fo
         info = new Food();
         info.setIsdelete(1);
         baseMapper.update(info,queryWrapper);
-
+        return (R.success("删除成功"));
     }
 }
