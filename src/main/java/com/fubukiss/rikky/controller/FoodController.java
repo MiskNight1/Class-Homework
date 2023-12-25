@@ -1,6 +1,7 @@
 package com.fubukiss.rikky.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fubukiss.rikky.common.R;
 import com.fubukiss.rikky.entity.Food;
@@ -22,8 +23,8 @@ public class FoodController {
     @PostMapping("/Add")
     public R<String> Add(@RequestBody Food food){
         log.info("新增菜品分类");
-        foodService.save(food);
-        return R.success("添加完成");
+        R<String> response = foodService.add(food);
+        return response;
     }
 
     @GetMapping("/page")
