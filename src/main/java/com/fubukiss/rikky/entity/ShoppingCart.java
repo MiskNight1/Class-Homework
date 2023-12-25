@@ -16,9 +16,10 @@ public class ShoppingCart{
 
     private static final long serialVersionUID = 1L;
 
+    //购物车id
     private Long id;
 
-    //名称
+    //菜品名称
     private String name;
 
     //用户id

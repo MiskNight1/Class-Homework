@@ -68,6 +68,8 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     public void submit(Orders orders) {
         // 获取当前用户id
         long currentId = orders.getUserId();
+//        long currentId = BaseContext.getCurrentId();
+
         // 查询当前用户购物车数据
         LambdaQueryWrapper<ShoppingCart> cartQueryWrapper = new LambdaQueryWrapper<>();
         cartQueryWrapper.eq(ShoppingCart::getUserId, currentId);    // where user_id = currentId
@@ -76,7 +78,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             throw new CustomException("购物车为空");
         }
         // 查询用户数据
-//        User user = userService.getById(currentId);
+        User user = userService.getById(currentId);
 
         long orderId = IdWorker.getId();    // IdWorker是mybatis-plus提供的工具类，用于生成订单号
 
@@ -105,6 +107,8 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         orders.setAmount(new BigDecimal(amount.get()));//总金额
         orders.setUserId(currentId);
         orders.setNumber(String.valueOf(orderId));
+
+        orders.setUserName(user.getUserName());
 
         this.save(orders);
         // 向order_detail插入数据

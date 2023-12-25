@@ -16,14 +16,14 @@ public class Orders{
 
     private static final long serialVersionUID = 1L;
 
+    //订单id
     private Long id;
 
-    //订单号
+    //订单号（其实就是String的id，但是怕删掉会引发不知名的错误，先不删了，请求的时候这个可以不用写）
     private String number;
 
     //订单状态 1待付款，2待派送，3已派送，4已完成，5已取消
     private Integer status;
-
 
     //下单用户id
     private Long userId;

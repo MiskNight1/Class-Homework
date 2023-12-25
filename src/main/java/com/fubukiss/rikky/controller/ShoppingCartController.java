@@ -65,7 +65,7 @@ public class ShoppingCartController {
     @PostMapping("/sub")
     public R<ShoppingCart> sub(@RequestBody ShoppingCart shoppingCart) {
         log.info("购物车:{}", shoppingCart);     // 打印日志
-        ShoppingCart shoppingCartOne = shoppingCartService.subInCart(shoppingCart);// 添加到购物车
+        ShoppingCart shoppingCartOne = shoppingCartService.subInCart(shoppingCart);// 删除到购物车
 
         return R.success(shoppingCartOne);
     }

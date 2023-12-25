@@ -6,8 +6,6 @@ import com.fubukiss.rikky.common.BaseContext;
 import com.fubukiss.rikky.entity.ShoppingCart;
 import com.fubukiss.rikky.mapper.ShoppingCartMapper;
 import com.fubukiss.rikky.service.ShoppingCartService;
-import com.fubukiss.rikky.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -27,8 +25,6 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper, Sho
      * @param shoppingCart 要添加的菜品
      * @return 添加后的购物车
      */
-
-
     public ShoppingCart addToCart(ShoppingCart shoppingCart) {
 
         // 设置用户id，指定当前是哪个用户的购物车
@@ -37,12 +33,17 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper, Sho
         shoppingCart.setUserId(UserId);
 
         // 查询当前菜品或套餐是否在购物车中，菜品口味要相同
-        Long dishId = shoppingCart.getFoodId(); // 查询前端传来的菜品id
+        Long foodId = shoppingCart.getFoodId(); // 查询前端传来的菜品id
 
         //　构造查询条件
         LambdaQueryWrapper<ShoppingCart> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(ShoppingCart::getUserId, UserId); // where user_id = ?
 
+        // 如果能查到dishId，说明购物车传来的是菜品，否则是套餐
+        if (foodId != null) {
+            queryWrapper.eq(ShoppingCart::getFoodId, foodId); // where food_id = ?
+//            queryWrapper.eq(ShoppingCart::getDishFlavor, shoppingCart.getDishFlavor()); // where dish_flavor = ?
+        }
 
         ShoppingCart one = this.getOne(queryWrapper);
 
@@ -69,20 +70,28 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper, Sho
      */
     public ShoppingCart subInCart(ShoppingCart shoppingCart) {
         // 设置用户id，指定当前是哪个用户的购物车
+//        long UserId = BaseContext.getCurrentId();
         long UserId=shoppingCart.getUserId();
         shoppingCart.setUserId(UserId);
 
         // 查询当前菜品或套餐是否在购物车中，菜品口味要相同
-        Long dishId = shoppingCart.getFoodId(); // 查询前端传来的菜品id
+        Long foodId = shoppingCart.getFoodId(); // 查询前端传来的菜品id
 
         //　构造查询条件
         LambdaQueryWrapper<ShoppingCart> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(ShoppingCart::getUserId, UserId); // where user_id = ?
 
-
+        // 如果能查到dishId，说明购物车传来的是菜品，否则是套餐
+        if (foodId != null) {
+            queryWrapper.eq(ShoppingCart::getFoodId, foodId); // where food_id = ?
+        }
 
         ShoppingCart one = this.getOne(queryWrapper);
 
+        //在购物车里，减去菜品
+        if (one != null) {
+            this.remove(queryWrapper);
+        }
 
         return one;
     }
@@ -98,6 +107,7 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper, Sho
         // 创建条件构造器
         LambdaQueryWrapper<ShoppingCart> queryWrapper = new LambdaQueryWrapper<>();
         // 设置查询条件
+
 //        queryWrapper.eq(ShoppingCart::getUserId, BaseContext.getCurrentId());   // BaseContext.getCurrentId()获取当前用户id
         queryWrapper.orderByAsc(ShoppingCart::getCreateTime); // 按照创建时间升序排列
         return this.list(queryWrapper);
@@ -111,6 +121,8 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper, Sho
     public void cleanCart() {
         // 条件构造器
         LambdaQueryWrapper<ShoppingCart> queryWrapper = new LambdaQueryWrapper<>();
+
+        //前端这里应该要去掉注释获取当前用户的id
 //        queryWrapper.eq(ShoppingCart::getUserId, BaseContext.getCurrentId());
 
         this.remove(queryWrapper);

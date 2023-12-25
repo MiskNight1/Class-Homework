@@ -42,12 +42,4 @@ public class OrdersController {
     }
 
 
-    /**
-     * <h2>分页查询用户的订单详情<h2/>
-     *
-     * @param page     页码
-     * @param pageSize 每页数量
-     * @return {@link R}
-     */
-
 }
